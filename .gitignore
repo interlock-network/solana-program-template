@@ -1,0 +1,14 @@
+# ignore
+
+# rust stuff
+target
+
+# misc stuff
+test-ledger
+~\$*
+*.swp
+.vscode/*
+
+
+# system stuff
+.DS_STORE
