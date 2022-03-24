@@ -6,6 +6,53 @@ This repository contains a template Solana program in Rust.
 
 > _Language note: a smart contract is called a **program** in Solana._
 
+### This template compiles, and can perform, but instructionOne needs right accounts created first to work right
+
+Compiling goes like so.
+
+From the ```template``` directory, run:
+```
+cargo build-bpf
+```
+
+### To deploy this program to a Solana test-validator, after building run the following 
+
+From this repository's root, run:
+```
+solana program deploy template/target/deploy/template.so
+```
+
+### The template has a structure like this:
+
+```
+.
+├── entrypoint
+│   ├── entrypoint.rs
+│   └── mod.rs
+├── error
+│   ├── error.rs
+│   └── mod.rs
+├── instruction
+│   ├── data.rs
+│   ├── mod.rs
+│   └── unpack.rs
+├── lib.rs
+├── processor
+│   ├── instructionOne.rs
+│   ├── instructionThree.rs
+│   ├── instructionTwo.rs
+│   ├── mod.rs
+│   └── run.rs
+├── state
+│   ├── FIRST.rs
+│   ├── SECOND.rs
+│   └── mod.rs
+└── utils
+    ├── mod.rs
+    └── utils.rs
+```
+
+
 ## Solana program anatomy:
 
 A Solana program has five general components:
@@ -70,57 +117,12 @@ The processor module contains everything we need to execute an instruction and d
 
 The state module defines the state variables for any accounts accessed by the Solana program. There are also specifications for how to pack and unpack these account states.
 
-
 .
 
 .
 
 .
 
-### The resulting template has a structure like this:
-
-```
-.
-├── entrypoint
-│   ├── entrypoint.rs
-│   └── mod.rs
-├── error
-│   ├── error.rs
-│   └── mod.rs
-├── instruction
-│   ├── data.rs
-│   ├── mod.rs
-│   └── unpack.rs
-├── lib.rs
-├── processor
-│   ├── instructionOne.rs
-│   ├── instructionThree.rs
-│   ├── instructionTwo.rs
-│   ├── mod.rs
-│   └── run.rs
-├── state
-│   ├── FIRST.rs
-│   ├── SECOND.rs
-│   └── mod.rs
-└── utils
-    ├── mod.rs
-    └── utils.rs
-```
-
-### This template compiles, and can perform, but there is a flaw in instructionOne that will fail the transaction.
-
-Compiling goes like so.
-
-From the ```template``` directory, run:
-```
-cargo build-bpf
-```
-
-### To deploy this program to a Solana test-validator, after building run the following 
-
-```
-solana program deploy ./solana-program-template/template/target/deploy/template.so
-```
 ```
 TODO:
 . expound on 2-5
