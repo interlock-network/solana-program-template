@@ -1,6 +1,5 @@
 /****************************************************************
- * Fracpay server entrypoint
- * blairmunroakusa@.0322.anch.AK
+ * Solana program template
  ****************************************************************/
 
 use solana_program::{
