@@ -14,7 +14,7 @@ A Solana program has five general components:
 2. error
 3. instruction
 4. processor
-5. stateo
+5. state
 
 In a simple program, we can assign a single .rs file to each of these components.
 
@@ -64,7 +64,7 @@ The instruction module contains everything we need to process our ```instruction
 
 ### 4. processor
 
-The processor module contains everything we need to execute and instruction and do the stuff it specifies.
+The processor module contains everything we need to execute an instruction and do the stuff it specifies.
 
 ### 5. state
 
@@ -121,7 +121,10 @@ cargo build-bpf
 ```
 solana program deploy ./solana-program-template/template/target/deploy/template.so
 ```
+```
 TODO:
 . expound on 2-5
-. explain how to compile
-. explain how to deploy
+x explain how to compile
+x explain how to deploy
+. comment template better
+```
