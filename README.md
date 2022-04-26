@@ -4,13 +4,21 @@ This README outlines the canonical (best practice) structure of a Solana program
 
 This repository contains a template Solana program in Rust.
 
+### Some notes:
+
 > _Language note: a smart contract is called a **program** in Solana._
+
+This template does not rely on any framework.
+
+This template is spelled out by the [Solana Cookbook here.](https://solanacookbook.com/core-concepts/programs.html#writing-programs)
+
+Details of this template are derived in large part from [Programming on Solana - An Introduction](https://paulx.dev/blog/2021/01/14/programming-on-solana-an-introduction/) by paulx.
 
 ### This template compiles, and can perform, but instructionOne needs right accounts created first to work right
 
 Compiling goes like so.
 
-From the ```template``` directory, run:
+From the `template` directory, run:
 ```
 cargo build-bpf
 ```
@@ -21,6 +29,7 @@ From this repository's root, run:
 ```
 solana program deploy template/target/deploy/template.so
 ```
+(Wherever you are, cargo-bpf will return the link to deploy on success.)
 
 ### The template has a structure like this:
 
@@ -62,6 +71,7 @@ A Solana program has five general components:
 3. instruction
 4. processor
 5. state
+6. utils
 
 In a simple program, we can assign a single .rs file to each of these components.
 
@@ -83,9 +93,9 @@ An excerpt from Solana docs:
 >
 >BPF provides an efficient instruction set that can be executed in an interpreted virtual machine or as efficient just-in-time compiled native instructions.
 
-A program is deployed and executed by a **loader** that serializes the program input data/parameters, and calls the program's entrypoint.
+A program is deployed, then executed by a **loader** that serializes the program input data/parameters, and calls the program's entrypoint.
 
-The ```entrypoint!``` macro within entrypoint.rs takes in this serialized data and deserializes the main parameters: ```program_id```, ```accounts```, and ```instruction_data```. It is up to the program to deserialize the ```instruction_data```.
+The `entrypoint!` macro within entrypoint.rs takes in this serialized data and deserializes the main parameters: `program_id`, `accounts`, and `instruction_data`. It is up to the program to further deserialize the `instruction_data`.
 
 Because the entrypoint.rs code is so small, I'll just include it here:
 
@@ -100,23 +110,31 @@ fn process_instruction(
     Processor::run_process(program_id, accounts, instruction_data)
 }
 ```
+The entrypoint module contains entrypoint.rs, which is the interface between the program and the Solana runtime BPF loader. This is like the front door; you can't get in without it.
 
 ### 2. error
 
-This is self explanatory. We define additional errors that are specific to our particular program.
+We define additional errors and handling that are specific to our particular program.
 
 ### 3. instruction
 
-The instruction module contains everything we need to process our ```instruction_data```. This includes determining the called instruction, and unpacking additional parameters passed along with the instruction specification.
+The instruction module contains everything we need to process our `instruction_data`. This includes determining the called instruction, and unpacking additional parameters passed along with the instruction specification.
 
 ### 4. processor
 
 The processor module contains everything we need to execute an instruction and do the stuff it specifies.
 
+The processor module contains components necessary to run the program, and process instructions as specified by a transaction. These components in general are run.rs containing the `run_process` function which matches incoming instructions to the appropriate process function. In addition to run.rs, processor will contain one file per process instruction, eg instructionOne.rs, instructionTwo.rs, etc. Processor is the most complicated module.
+
 ### 5. state
 
 The state module defines the state variables for any accounts accessed by the Solana program. There are also specifications for how to pack and unpack these account states.
 
+The state module deals with the interface between the program, and any onchain accounts that may be storing program state. As a reminder, Solana programs, unlike Ethereum smart contracts, are stateless. All state variables must be stored in dedicated non-executable accounts onchain. In general the state module will contain Pack crate implementations, one for each type of account. For example, the first account type would be specified in FIRST.rs, the second account type in SECOND.rs, and so on. Each implementation defines the appropriate struct, along with the serialization and deserialization Pack implementations.
+
+### 6. utils
+
+For large projects, a utilites module is convenient to define global constants and make code more reusable, the usual stuff.
 .
 
 .

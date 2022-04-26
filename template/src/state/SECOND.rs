@@ -20,7 +20,7 @@ use arrayref::{
         array_refs,
     };
 
-use crate::utils::*;
+use crate::utils::utils::*;
 
 // example Pack implementation for struct defining state for an account type called SECOND
 //

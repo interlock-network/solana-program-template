@@ -9,9 +9,9 @@ use solana_program::{
     };
 
 use crate::{
-        error::TemplateError::InvalidInstruction,
+        error::error::TemplateError::InvalidInstruction,
         instruction::data::TemplateInstruction,
-        utils::*,
+        utils::utils::*,
     };
 
 // this is example instruction_data 'unpack' implementation

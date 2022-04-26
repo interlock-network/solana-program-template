@@ -10,7 +10,7 @@ use solana_program::program_error::ProgramError;
 use std::array::TryFromSliceError;
 use bit_vec::BitVec;
 
-use crate::error::TemplateError::InvalidInstruction;
+use crate::error::error::TemplateError::InvalidInstruction;
 
 
 // here is where I put a bunch of constants
