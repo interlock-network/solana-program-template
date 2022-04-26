@@ -6,6 +6,9 @@ use thiserror::Error;
 
 use solana_program::program_error::ProgramError;
 
+// besides the msg! I didn't these I didn't alter these much from the paulx implementation
+// the msg! prints the error name in the log, instead of 'custom program error x00', etc
+
 #[derive(Error, Debug, Copy, Clone)]
 pub enum TemplateError {
     /// Invalid instruction
@@ -20,13 +23,14 @@ pub enum TemplateError {
     /// Try From Slice
     #[error("Try From Slice Fail")]
     TryFromSliceError,
-    /// Account Creation Attempt Fail
-    #[error("Account Creation Attempt Fail")]
+    /// Instruction One Attempt Fail
+    #[error("Instruction One Attempt Fail")]
     InstructionOneAttemptError,
 }
 
 impl From<TemplateError> for ProgramError {
     fn from(error: TemplateError) -> Self {
+        msg!(":?", error);
         ProgramError::Custom(error as u32)
     }
 }
