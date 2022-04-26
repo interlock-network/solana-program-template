@@ -12,7 +12,9 @@ This template does not rely on any framework.
 
 This template is spelled out by the [Solana Cookbook here.](https://solanacookbook.com/core-concepts/programs.html#writing-programs)
 
-Details of this template are derived in large part from [Programming on Solana - An Introduction](https://paulx.dev/blog/2021/01/14/programming-on-solana-an-introduction/) by paulx.
+Details of this template are derived in large part from [Programming on Solana - An Introduction](https://paulx.dev/blog/2021/01/14/programming-on-solana-an-introduction/) by @paul-schaaf.
+
+I provided implementations for state and instruction data variables of type number and string, plus a state variable for signalling flags expressed as a bitvector -> u16.
 
 ### This template compiles, and can perform, but instructionOne needs right accounts created first to work right
 
@@ -22,6 +24,10 @@ From the `template` directory, run:
 ```
 cargo build-bpf
 ```
+You may have to build regular _first_ like:
+```
+cargo build
+```
 
 ### To deploy this program to a Solana test-validator, after building run the following 
 
@@ -29,7 +35,10 @@ From this repository's root, run:
 ```
 solana program deploy template/target/deploy/template.so
 ```
-(Wherever you are, cargo-bpf will return the link to deploy on success.)
+Recall, after installing solana, run a test node via:
+```
+solana-test-validator
+```
 
 ### The template has a structure like this:
 
@@ -143,8 +152,5 @@ For large projects, a utilites module is convenient to define global constants a
 
 ```
 TODO:
-. expound on 2-5
-x explain how to compile
-x explain how to deploy
-. comment template better
+. make better READMEs
 ```
