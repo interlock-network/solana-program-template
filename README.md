@@ -80,7 +80,7 @@ A Solana program has five general components:
 3. instruction
 4. processor
 5. state
-6. utils
+6. utils (and a bonus extra for big programs ;)
 
 In a simple program, we can assign a single .rs file to each of these components.
 
